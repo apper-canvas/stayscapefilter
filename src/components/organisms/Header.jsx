@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
-import { logout } from "@/store/userSlice";
+import { clearUser } from "@/store/userSlice";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Header = () => {
 const { user, isAuthenticated } = useSelector((state) => state.user);
 const handleAuth = async () => {
     if (isAuthenticated) {
-      await dispatch(logout());
+await dispatch(clearUser());
     } else {
       navigate("/login");
     }

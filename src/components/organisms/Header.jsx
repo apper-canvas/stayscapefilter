@@ -1,21 +1,21 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
-import { AuthContext } from "@/contexts/AuthContext";
+import { logout } from "@/store/slices/userSlice";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   
   // Simulate authentication state
 const { user, isAuthenticated } = useSelector((state) => state.user);
-  const { logout } = useContext(AuthContext);
 const handleAuth = async () => {
     if (isAuthenticated) {
-      await logout();
+      await dispatch(logout());
     } else {
       navigate("/login");
     }

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import userService from "@/services/api/userService";
+import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
-import ApperIcon from "@/components/ApperIcon";
-import userService from "@/services/api/userService";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -13,12 +13,12 @@ const AuthPage = () => {
   const isLogin = location.pathname === "/login";
   
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
+const [formData, setFormData] = useState({
+    email_c: "",
     password: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
+    first_name_c: "",
+    last_name_c: "",
+    phone_c: "",
     confirmPassword: ""
   });
   const [errors, setErrors] = useState({});
@@ -37,12 +37,12 @@ const AuthPage = () => {
     }
   };
 
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.email.trim()) {
+    if (!formData.email_c.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(formData.email_c)) {
       newErrors.email = "Email is invalid";
     }
     
@@ -52,14 +52,14 @@ const AuthPage = () => {
       newErrors.password = "Password must be at least 6 characters";
     }
     
-    if (!isLogin) {
-      if (!formData.firstName.trim()) {
+if (!isLogin) {
+      if (!formData.first_name_c.trim()) {
         newErrors.firstName = "First name is required";
       }
-      if (!formData.lastName.trim()) {
+      if (!formData.last_name_c.trim()) {
         newErrors.lastName = "Last name is required";
       }
-      if (!formData.phone.trim()) {
+      if (!formData.phone_c.trim()) {
         newErrors.phone = "Phone number is required";
       }
       if (formData.password !== formData.confirmPassword) {
@@ -78,25 +78,26 @@ const AuthPage = () => {
       return;
     }
 
-    try {
+try {
       setLoading(true);
       
       if (isLogin) {
-        const result = await userService.authenticate(formData.email, formData.password);
+        // Authentication is now handled by ApperUI - redirect to login page
+        const result = await userService.login({
+          email: formData.email_c,
+          password: formData.password
+        });
         toast.success("Welcome back!");
-        // In a real app, you'd store the token and user info
         navigate("/dashboard");
       } else {
-        const userData = {
-          email: formData.email,
+        // Registration is now handled by ApperUI - redirect to signup page
+        const result = await userService.register({
+          email: formData.email_c,
           password: formData.password,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          name: `${formData.firstName} ${formData.lastName}`,
-          phone: formData.phone
-        };
-        
-        const result = await userService.register(userData);
+          first_name: formData.first_name_c,
+          last_name: formData.last_name_c,
+          phone: formData.phone_c
+        });
         toast.success("Account created successfully! Welcome to StayScape!");
         navigate("/dashboard");
       }
@@ -141,26 +142,26 @@ const AuthPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 <Input
                   label="First Name"
-                  value={formData.firstName}
-                  onChange={(e) => handleInputChange("firstName", e.target.value)}
+value={formData.first_name_c}
+                  onChange={(e) => handleInputChange("first_name_c", e.target.value)}
                   error={errors.firstName}
                   placeholder="John"
                 />
                 <Input
                   label="Last Name"
-                  value={formData.lastName}
-                  onChange={(e) => handleInputChange("lastName", e.target.value)}
+value={formData.last_name_c}
+                  onChange={(e) => handleInputChange("last_name_c", e.target.value)}
                   error={errors.lastName}
                   placeholder="Smith"
                 />
               </div>
             )}
 
-            <Input
+<Input
               label="Email Address"
               type="email"
-              value={formData.email}
-              onChange={(e) => handleInputChange("email", e.target.value)}
+              value={formData.email_c}
+              onChange={(e) => handleInputChange("email_c", e.target.value)}
               error={errors.email}
               placeholder="john@example.com"
             />
@@ -169,8 +170,8 @@ const AuthPage = () => {
               <Input
                 label="Phone Number"
                 type="tel"
-                value={formData.phone}
-                onChange={(e) => handleInputChange("phone", e.target.value)}
+value={formData.phone_c}
+                onChange={(e) => handleInputChange("phone_c", e.target.value)}
                 error={errors.phone}
                 placeholder="+1 (555) 123-4567"
               />

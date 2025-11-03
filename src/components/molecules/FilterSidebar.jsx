@@ -88,7 +88,7 @@ const FilterSidebar = ({ filters, onFiltersChange, onClearFilters, isOpen, onClo
             <label key={rating} className="flex items-center">
               <input
                 type="checkbox"
-                checked={(localFilters.starRating || []).includes(rating)}
+checked={(localFilters.starRating || []).includes(rating)}
                 onChange={() => handleStarRatingChange(rating)}
                 className="mr-3 rounded border-gray-300"
               />
@@ -115,7 +115,7 @@ const FilterSidebar = ({ filters, onFiltersChange, onClearFilters, isOpen, onClo
               <input
                 type="radio"
                 name="rating"
-                checked={localFilters.rating === rating}
+checked={localFilters.rating === rating}
                 onChange={() => handleFilterChange("rating", rating)}
                 className="mr-3"
               />

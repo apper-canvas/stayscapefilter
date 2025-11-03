@@ -103,7 +103,7 @@ const FeaturedHotels = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
               {hotels.map((hotel, index) => (
-                <HotelCard key={hotel.Id} hotel={hotel} index={index} />
+<HotelCard key={hotel.Id} hotel={hotel} index={index} />
               ))}
             </div>
 

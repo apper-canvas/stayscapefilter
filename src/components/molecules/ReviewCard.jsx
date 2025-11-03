@@ -5,7 +5,7 @@ import Badge from "@/components/atoms/Badge";
 import Button from "@/components/atoms/Button";
 
 function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUserId = null }) {
-  const canModify = currentUserId && review.userId === currentUserId;
+const canModify = currentUserId && review.user_id_c === currentUserId;
   
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -18,22 +18,22 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
   };
 
   const renderPhotos = () => {
-    if (!review.photos || review.photos.length === 0) return null;
+if (!review.photos || review.photos.length === 0) return null;
     
     return (
       <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-2">
         {review.photos.slice(0, 6).map((photo, index) => (
           <div key={index} className="relative aspect-square rounded-lg overflow-hidden">
             <img 
-              src={photo} 
+src={photo}
               alt={`Review photo ${index + 1}`}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
             />
           </div>
         ))}
-        {review.photos.length > 6 && (
+{review.photos.length > 6 && (
           <div className="aspect-square rounded-lg bg-gray-100 flex items-center justify-center">
-            <span className="text-gray-600 text-sm">+{review.photos.length - 6} more</span>
+<span className="text-gray-600 text-sm">+{review.photos.length - 6} more</span>
           </div>
         )}
       </div>
@@ -49,10 +49,10 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
-          {review.userAvatar ? (
+{review.user_avatar_c ? (
             <img 
-              src={review.userAvatar} 
-              alt={review.userName}
+              src={review.user_avatar_c} 
+              alt={review.user_name_c}
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
@@ -62,8 +62,8 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
           )}
           <div>
             <div className="flex items-center space-x-2">
-              <h4 className="font-semibold text-gray-900">{review.userName}</h4>
-              {review.verified && (
+<h4 className="font-semibold text-gray-900">{review.user_name_c}</h4>
+{review.verified_c && (
                 <Badge variant="success" className="text-xs">
                   <ApperIcon name="CheckCircle" className="w-3 h-3 mr-1" />
                   Verified Stay
@@ -72,10 +72,10 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
             </div>
             <div className="flex items-center space-x-2 mt-1">
               <div className="flex space-x-1">
-                {renderStars(review.rating)}
+{renderStars(review.rating_c)}
               </div>
               <span className="text-sm text-gray-500">
-                {format(parseISO(review.createdAt), 'MMM d, yyyy')}
+{format(parseISO(review.CreatedOn), 'MMM d, yyyy')}
               </span>
             </div>
           </div>
@@ -86,7 +86,7 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onEdit(review)}
+onClick={() => onEdit(review)}
               className="p-2"
             >
               <ApperIcon name="Edit2" className="w-4 h-4" />
@@ -94,7 +94,7 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onDelete(review.Id)}
+onClick={() => onDelete(review.Id)}
               className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50"
             >
               <ApperIcon name="Trash2" className="w-4 h-4" />
@@ -105,8 +105,8 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
 
       {/* Review Content */}
       <div className="mb-4">
-        <h3 className="font-semibold text-lg text-gray-900 mb-2">{review.title}</h3>
-        <p className="text-gray-700 leading-relaxed">{review.comment}</p>
+<h3 className="font-semibold text-lg text-gray-900 mb-2">{review.title_c}</h3>
+<p className="text-gray-700 leading-relaxed">{review.comment_c}</p>
       </div>
 
       {/* Photos */}
@@ -115,13 +115,13 @@ function ReviewCard({ review, onEdit, onDelete, showHotelName = false, currentUs
       {/* Footer */}
       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
         <div className="flex items-center space-x-4 text-sm text-gray-500">
-          {showHotelName && (
+{showHotelName && (
             <span>Stay Date: {format(parseISO(review.stayDate), 'MMM d, yyyy')}</span>
           )}
-          {review.helpful > 0 && (
+{review.helpful_c > 0 && (
             <div className="flex items-center space-x-1">
               <ApperIcon name="ThumbsUp" className="w-4 h-4" />
-              <span>{review.helpful} helpful</span>
+<span>{review.helpful_c} helpful</span>
             </div>
           )}
         </div>

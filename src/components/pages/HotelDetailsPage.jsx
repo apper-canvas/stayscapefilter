@@ -60,7 +60,7 @@ const handleBookNow = () => {
     }
     
     const bookingData = {
-      hotelId: hotel.Id,
+hotelId: hotel.Id,
       checkIn,
       checkOut,
       guests
@@ -97,7 +97,7 @@ const handleBookNow = () => {
       {/* Image Gallery */}
       <div className="relative h-96 md:h-[500px] overflow-hidden">
         <img
-          src={hotel.images[selectedImageIndex]}
+src={hotel.images?.[selectedImageIndex] || '/placeholder-hotel.jpg'}
           alt={hotel.name}
           className="w-full h-full object-cover cursor-pointer"
           onClick={() => setIsGalleryOpen(true)}
@@ -113,13 +113,13 @@ const handleBookNow = () => {
         </div>
 
         <div className="absolute top-4 right-4 flex gap-2">
-          {!hotel.available && <Badge variant="error">Unavailable</Badge>}
-          {hotel.featured && <Badge variant="accent">Featured</Badge>}
+{!hotel.available_c && <Badge variant="error">Unavailable</Badge>}
+          {hotel.featured_c && <Badge variant="accent">Featured</Badge>}
         </div>
 
         <div className="absolute bottom-4 left-4 right-4">
           <div className="flex space-x-2 overflow-x-auto pb-2">
-            {hotel.images.map((image, index) => (
+{hotel.images?.map((image, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedImageIndex(index)}
@@ -147,16 +147,16 @@ const handleBookNow = () => {
               <div className="flex items-start justify-between">
                 <div>
                   <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-2">
-                    {hotel.name}
+{hotel.name_c}
                   </h1>
                   <div className="flex items-center text-gray-600 mb-4">
                     <ApperIcon name="MapPin" className="w-5 h-5 mr-2" />
-                    <span>{hotel.address}</span>
+<span>{hotel.address_c}</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="text-3xl font-bold text-primary-500">
-                    ${hotel.pricePerNight}
+${hotel.price_per_night_c}
                   </div>
                   <div className="text-sm text-gray-500">per night</div>
                 </div>
@@ -164,13 +164,13 @@ const handleBookNow = () => {
 
               <div className="flex items-center space-x-6">
                 <div className="flex items-center">
-                  {renderStars(hotel.starRating)}
-                  <span className="ml-2 text-sm text-gray-600">{hotel.starRating} Star Hotel</span>
+{renderStars(hotel.star_rating_c)}
+                  <span className="ml-2 text-sm text-gray-600">{hotel.star_rating_c} Star Hotel</span>
                 </div>
 <div className="flex items-center bg-primary-50 rounded-lg px-3 py-2">
                   <ApperIcon name="Star" className="w-4 h-4 text-amber-400 fill-current mr-1" />
-                  <span className="font-medium text-primary-700">{hotel.rating}</span>
-                  <span className="text-sm text-gray-600 ml-2">({hotel.reviewCount} reviews)</span>
+<span className="font-medium text-primary-700">{hotel.rating_c}</span>
+                  <span className="text-sm text-gray-600 ml-2">({hotel.review_count_c} reviews)</span>
                 </div>
                 <Button
                   variant="secondary"
@@ -191,7 +191,7 @@ const handleBookNow = () => {
               className="card p-6"
             >
               <h2 className="text-2xl font-display font-semibold text-gray-900 mb-4">About This Hotel</h2>
-              <p className="text-gray-700 leading-relaxed">{hotel.description}</p>
+<p className="text-gray-700 leading-relaxed">{hotel.description_c}</p>
             </motion.div>
 
             {/* Amenities */}
@@ -203,7 +203,7 @@ const handleBookNow = () => {
             >
               <h2 className="text-2xl font-display font-semibold text-gray-900 mb-6">Amenities & Services</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {hotel.amenities.map((amenity, index) => (
+{hotel.amenities?.map((amenity, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-primary-50 rounded-lg flex items-center justify-center">
                       <ApperIcon name="Check" className="w-4 h-4 text-primary-500" />
@@ -225,8 +225,8 @@ const handleBookNow = () => {
               <div className="bg-gray-100 rounded-lg h-64 flex items-center justify-center">
                 <div className="text-center text-gray-600">
                   <ApperIcon name="MapPin" className="w-8 h-8 mx-auto mb-2" />
-                  <p>{hotel.location.city}, {hotel.location.state}</p>
-                  <p className="text-sm">{hotel.address}</p>
+<p>{hotel.location_city_c}, {hotel.location_state_c}</p>
+<p className="text-sm">{hotel.address_c}</p>
                 </div>
 </div>
               
@@ -253,29 +253,29 @@ const handleBookNow = () => {
                     {/* Rating Summary */}
                     <div className="flex items-center space-x-6 p-4 bg-gray-50 rounded-lg">
                       <div className="text-center">
-                        <div className="text-3xl font-bold text-gray-900">{hotel.rating}</div>
+<div className="text-3xl font-bold text-gray-900">{hotel.rating_c}</div>
                         <div className="flex justify-center space-x-1 mt-1">
-                          {renderStars(Math.round(hotel.rating))}
+                          {renderStars(Math.round(hotel.rating_c))}
                         </div>
-                        <div className="text-sm text-gray-600 mt-1">{hotel.reviewCount} reviews</div>
+                        <div className="text-sm text-gray-600 mt-1">{hotel.review_count_c} reviews</div>
                       </div>
                       
                       {hotel.reviewStats && (
                         <div className="flex-1">
                           {[5, 4, 3, 2, 1].map(rating => (
-                            <div key={rating} className="flex items-center mb-1">
+<div key={rating} className="flex items-center mb-1">
                               <span className="text-sm w-3">{rating}</span>
                               <ApperIcon name="Star" className="w-3 h-3 text-amber-400 fill-current mx-2" />
                               <div className="flex-1 bg-gray-200 rounded-full h-2">
                                 <div 
                                   className="bg-amber-400 h-2 rounded-full"
                                   style={{ 
-                                    width: `${hotel.reviewStats[rating] ? (hotel.reviewStats[rating] / hotel.reviewCount) * 100 : 0}%` 
+                                    width: `${hotel.reviewStats?.[rating] ? (hotel.reviewStats[rating] / hotel.review_count_c) * 100 : 0}%` 
                                   }}
                                 ></div>
                               </div>
                               <span className="text-sm text-gray-600 ml-2 w-8">
-                                {hotel.reviewStats[rating] || 0}
+                                {hotel.reviewStats?.[rating] || 0}
                               </span>
                             </div>
                           ))}
@@ -285,13 +285,13 @@ const handleBookNow = () => {
                     
                     {/* Recent Reviews */}
                     {reviews.map(review => (
-                      <ReviewCard key={review.Id} review={review} />
+<ReviewCard key={review.Id} review={review} />
                     ))}
                     
                     <div className="text-center pt-4">
                       <Button variant="secondary" onClick={handleViewAllReviews}>
                         <ApperIcon name="ExternalLink" className="w-4 h-4 mr-2" />
-                        View All {hotel.reviewCount} Reviews
+View All {hotel.review_count_c} Reviews
                       </Button>
                     </div>
                   </div>
@@ -363,7 +363,7 @@ const handleBookNow = () => {
                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-gray-600">Rate per night</span>
-                    <span className="font-medium">${hotel.pricePerNight}</span>
+<span className="font-medium">${hotel.price_per_night_c}</span>
                   </div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-gray-600">Nights</span>
@@ -374,8 +374,8 @@ const handleBookNow = () => {
                   <div className="border-t border-gray-200 pt-2 mt-2">
                     <div className="flex justify-between items-center">
                       <span className="font-semibold text-gray-900">Total</span>
-                      <span className="text-xl font-bold text-primary-500">
-                        ${hotel.pricePerNight * Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24))}
+<span className="text-xl font-bold text-primary-500">
+                        ${hotel.price_per_night_c * Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24))}
                       </span>
                     </div>
                   </div>
@@ -385,10 +385,10 @@ const handleBookNow = () => {
               <Button
                 onClick={handleBookNow}
                 className="w-full"
-                disabled={!hotel.available}
+disabled={!hotel.available_c}
                 size="lg"
               >
-                {hotel.available ? (
+{hotel.available_c ? (
                   <>
                     <ApperIcon name="Calendar" className="w-5 h-5 mr-2" />
                     Book Now
@@ -398,7 +398,7 @@ const handleBookNow = () => {
                 )}
               </Button>
 
-              {hotel.available && (
+{hotel.available_c && (
                 <p className="text-sm text-gray-500 text-center mt-4">
                   Free cancellation • No booking fees
                 </p>
@@ -420,8 +420,8 @@ const handleBookNow = () => {
           >
             <div className="relative max-w-6xl max-h-full" onClick={e => e.stopPropagation()}>
               <img
-                src={hotel.images[selectedImageIndex]}
-                alt={`${hotel.name} - Image ${selectedImageIndex + 1}`}
+src={hotel.images?.[selectedImageIndex] || '/placeholder-hotel.jpg'}
+                alt={`${hotel.name_c} - Image ${selectedImageIndex + 1}`}
                 className="max-w-full max-h-full object-contain"
               />
               
@@ -434,7 +434,7 @@ const handleBookNow = () => {
               </Button>
               
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                {hotel.images.map((_, index) => (
+{hotel.images?.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}

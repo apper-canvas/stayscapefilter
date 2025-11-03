@@ -6,11 +6,11 @@ import ApperIcon from "@/components/ApperIcon";
 
 function ReviewForm({ onSubmit, onCancel, initialData = null, isLoading = false }) {
   const [formData, setFormData] = useState({
-    rating: initialData?.rating || 0,
-    title: initialData?.title || "",
-    comment: initialData?.comment || "",
+rating_c: initialData?.rating_c || 0,
+    title_c: initialData?.title_c || "",
+    comment_c: initialData?.comment_c || "",
     photos: initialData?.photos || [],
-    stayDate: initialData?.stayDate || ""
+    stay_date_c: initialData?.stay_date_c || ""
   });
 
   const [errors, setErrors] = useState({});

@@ -56,7 +56,7 @@ const DashboardPage = () => {
   const stats = [
     {
       title: "Total Bookings",
-      value: user?.totalBookings || 0,
+value: user?.total_bookings_c || 0,
       icon: "Calendar",
       color: "text-blue-600",
       bgColor: "bg-blue-50"
@@ -77,7 +77,7 @@ const DashboardPage = () => {
     },
     {
       title: "Loyalty Status",
-      value: user?.loyaltyStatus || "Bronze",
+value: user?.loyalty_status_c || "Bronze",
       icon: "Crown",
       color: "text-amber-600",
       bgColor: "bg-amber-50"
@@ -97,7 +97,7 @@ const DashboardPage = () => {
           className="mb-8"
         >
           <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-2">
-            Welcome back, {user?.firstName || user?.name || "Traveler"}! 👋
+Welcome back, {user?.first_name_c || user?.name_c || "Traveler"}! 👋
           </h1>
           <p className="text-xl text-gray-600">
             Here's what's happening with your travels.
@@ -169,27 +169,27 @@ const DashboardPage = () => {
             ) : (
               <div className="space-y-4">
                 {upcomingBookings.map((booking) => (
-                  <div key={booking.Id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+<div key={booking.Id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <img
-                      src={booking.hotelImage}
-                      alt={booking.hotelName}
+src={booking.hotel_image_c}
+                      alt={booking.hotel_name_c}
                       className="w-16 h-12 object-cover rounded-lg"
                     />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 truncate">
-                        {booking.hotelName}
+{booking.hotel_name_c}
                       </h4>
                       <div className="flex items-center text-sm text-gray-600 mt-1">
                         <ApperIcon name="Calendar" className="w-4 h-4 mr-1" />
-                        {new Date(booking.checkIn).toLocaleDateString()}
+{new Date(booking.check_in_c).toLocaleDateString()}
                       </div>
                     </div>
                     <div className="text-right">
-                      <Badge variant={getStatusVariant(booking.status)}>
-                        {booking.status}
+<Badge variant={getStatusVariant(booking.status_c)}>
+                        {booking.status_c}
                       </Badge>
                       <div className="text-sm text-gray-600 mt-1">
-                        {booking.nights} nights
+                        {booking.nights_c} nights
                       </div>
                     </div>
                   </div>
@@ -234,41 +234,41 @@ const DashboardPage = () => {
             ) : (
               <div className="space-y-4">
                 {recentBookings.map((booking) => (
-                  <div key={booking.Id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+<div key={booking.Id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center space-x-4">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        booking.status === "confirmed" ? "bg-success/10" :
+booking.status_c === "confirmed" ? "bg-success/10" :
                         booking.status === "completed" ? "bg-primary/10" :
                         booking.status === "cancelled" ? "bg-error/10" : "bg-gray-100"
                       }`}>
                         <ApperIcon 
-                          name={
-                            booking.status === "confirmed" ? "CheckCircle" :
-                            booking.status === "completed" ? "Check" :
-                            booking.status === "cancelled" ? "XCircle" : "Clock"
+name={
+                            booking.status_c === "confirmed" ? "CheckCircle" :
+                            booking.status_c === "completed" ? "Check" :
+                            booking.status_c === "cancelled" ? "XCircle" : "Clock"
                           }
                           className={`w-5 h-5 ${
-                            booking.status === "confirmed" ? "text-success" :
-                            booking.status === "completed" ? "text-primary-500" :
-                            booking.status === "cancelled" ? "text-error" : "text-gray-500"
+                            booking.status_c === "confirmed" ? "text-success" :
+                            booking.status_c === "completed" ? "text-primary-500" :
+                            booking.status_c === "cancelled" ? "text-error" : "text-gray-500"
                           }`}
                         />
                       </div>
                       <div>
                         <h4 className="font-medium text-gray-900">
-                          {booking.status === "confirmed" ? "Booking Confirmed" :
-                           booking.status === "completed" ? "Trip Completed" :
-                           booking.status === "cancelled" ? "Booking Cancelled" : "Booking Created"}
+{booking.status_c === "confirmed" ? "Booking Confirmed" :
+                           booking.status_c === "completed" ? "Trip Completed" :
+                           booking.status_c === "cancelled" ? "Booking Cancelled" : "Booking Created"}
                         </h4>
                         <p className="text-sm text-gray-600">{booking.hotelName}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-600">
-                        {new Date(booking.createdAt).toLocaleDateString()}
+{new Date(booking.CreatedOn).toLocaleDateString()}
                       </div>
                       <Badge variant={getStatusVariant(booking.status)} className="text-xs">
-                        {booking.status}
+{booking.status_c}
                       </Badge>
                     </div>
                   </div>

@@ -1,20 +1,25 @@
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AnimatePresence, motion } from "framer-motion";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
-
+import { AuthContext } from "@/contexts/AuthContext";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   
   // Simulate authentication state
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user] = useState({
-    name: "John Smith",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
-  });
+const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { logout } = useContext(AuthContext);
+const handleAuth = async () => {
+    if (isAuthenticated) {
+      await logout();
+    } else {
+      navigate("/login");
+    }
+  };
 
   const isActivePath = (path) => location.pathname === path;
 
@@ -28,20 +33,11 @@ const Header = () => {
     { name: "Dashboard", path: "/dashboard", icon: "LayoutDashboard" },
     { name: "My Bookings", path: "/bookings", icon: "Calendar" },
     { name: "Profile", path: "/profile", icon: "User" }
-  ];
+];
 
-  const handleAuth = () => {
-    if (isAuthenticated) {
-      setIsAuthenticated(false);
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  };
+const navItems = isAuthenticated ? [...publicNavItems, ...privateNavItems] : publicNavItems;
 
-  const navItems = isAuthenticated ? [...publicNavItems, ...privateNavItems] : publicNavItems;
-
-  return (
+return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -73,15 +69,15 @@ const Header = () => {
 
           {/* Auth Section */}
           <div className="hidden lg:flex items-center space-x-4">
-            {isAuthenticated ? (
+{isAuthenticated ? (
               <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
                   <img
-                    src={user.avatar}
-                    alt={user.name}
+                    src={user?.avatar_c || '/default-avatar.jpg'}
+                    alt={user?.name_c || 'User'}
                     className="w-8 h-8 rounded-full object-cover"
                   />
-                  <span className="text-sm font-medium text-gray-700">{user.name}</span>
+                  <span className="text-sm font-medium text-gray-700">{user?.name_c || user?.first_name_c}</span>
                 </div>
                 <Button variant="ghost" size="sm" onClick={handleAuth}>
                   <ApperIcon name="LogOut" className="w-4 h-4 mr-2" />
@@ -139,17 +135,17 @@ const Header = () => {
                   </Link>
                 ))}
                 
-                <div className="pt-4 border-t border-gray-200">
+<div className="pt-4 border-t border-gray-200">
                   {isAuthenticated ? (
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3 px-4 py-2">
                         <img
-                          src={user.avatar}
-                          alt={user.name}
+                          src={user?.avatar_c || '/default-avatar.jpg'}
+                          alt={user?.name_c || 'User'}
                           className="w-10 h-10 rounded-full object-cover"
                         />
                         <div>
-                          <div className="text-base font-medium text-gray-900">{user.name}</div>
+                          <div className="text-base font-medium text-gray-900">{user?.name_c || user?.first_name_c}</div>
                           <div className="text-sm text-gray-500">View Profile</div>
                         </div>
                       </div>

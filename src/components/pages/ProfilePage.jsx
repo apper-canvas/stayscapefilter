@@ -88,7 +88,7 @@ const ProfilePage = () => {
   if (error) return <Error message={error} onRetry={loadUser} />;
   if (!user) return <Error message="User not found" />;
 
-  const loyaltyInfo = getLoyaltyStatusInfo(user.loyaltyStatus);
+const loyaltyInfo = getLoyaltyStatusInfo(user.loyalty_status_c);
 
   return (
     <div className="min-h-screen bg-background py-8">
@@ -119,8 +119,8 @@ const ProfilePage = () => {
               >
                 <div className="relative mb-6">
                   <img
-                    src={user.avatar}
-                    alt={user.name}
+src={user.avatar_c}
+                    alt={user.name_c}
                     className="w-24 h-24 rounded-full object-cover mx-auto border-4 border-white shadow-lg"
                   />
                   <button className="absolute bottom-0 right-1/2 translate-x-1/2 translate-y-2 w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors">
@@ -129,25 +129,25 @@ const ProfilePage = () => {
                 </div>
 
                 <h2 className="text-xl font-display font-semibold text-gray-900 mb-2">
-                  {user.name}
+{user.name_c}
                 </h2>
-                <p className="text-gray-600 mb-4">{user.email}</p>
+                <p className="text-gray-600 mb-4">{user.email_c}</p>
 
                 <div className="space-y-3 mb-6">
                   <Badge variant="default" className={loyaltyInfo.color}>
-                    <ApperIcon name={loyaltyInfo.icon} className="w-3 h-3 mr-1" />
-                    {user.loyaltyStatus} Member
+<ApperIcon name={loyaltyInfo.icon} className="w-3 h-3 mr-1" />
+                    {user.loyalty_status_c} Member
                   </Badge>
                   
                   <div className="text-sm text-gray-600">
-                    Member since {new Date(user.memberSince).getFullYear()}
+Member since {new Date(user.member_since_c).getFullYear()}
                   </div>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-200">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-primary-500">{user.totalBookings}</div>
+<div className="text-2xl font-bold text-primary-500">{user.total_bookings_c}</div>
                     <div className="text-sm text-gray-600">Total Bookings</div>
                   </div>
                   <div className="text-center">
@@ -195,27 +195,27 @@ const ProfilePage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <Input
                     label="First Name"
-                    value={editData.firstName || ""}
-                    onChange={(e) => handleInputChange("firstName", e.target.value)}
+value={editData.first_name_c || ""}
+                    onChange={(e) => handleInputChange("first_name_c", e.target.value)}
                     disabled={!isEditing}
                   />
                   <Input
-                    label="Last Name"
-                    value={editData.lastName || ""}
-                    onChange={(e) => handleInputChange("lastName", e.target.value)}
+label="Last Name"
+                    value={editData.last_name_c || ""}
+                    onChange={(e) => handleInputChange("last_name_c", e.target.value)}
                     disabled={!isEditing}
                   />
                   <Input
-                    label="Email Address"
+label="Email Address"
                     type="email"
-                    value={editData.email || ""}
+                    value={editData.email_c || ""}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     disabled={!isEditing}
                   />
                   <Input
-                    label="Phone Number"
-                    value={editData.phone || ""}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
+label="Phone Number"
+                    value={editData.phone_c || ""}
+                    onChange={(e) => handleInputChange("phone_c", e.target.value)}
                     disabled={!isEditing}
                   />
                 </div>
@@ -236,8 +236,8 @@ const ProfilePage = () => {
                   <div>
                     <label className="label">Preferred Room Type</label>
                     <select
-                      value={editData.preferences?.roomType || ""}
-                      onChange={(e) => handlePreferenceChange("roomType", e.target.value)}
+value={editData.room_type_c || ""}
+                      onChange={(e) => handleInputChange("room_type_c", e.target.value)}
                       disabled={!isEditing}
                       className="input"
                     >
@@ -251,8 +251,8 @@ const ProfilePage = () => {
                   <div>
                     <label className="label">Bed Preference</label>
                     <select
-                      value={editData.preferences?.bedType || ""}
-                      onChange={(e) => handlePreferenceChange("bedType", e.target.value)}
+value={editData.bed_type_c || ""}
+                      onChange={(e) => handleInputChange("bed_type_c", e.target.value)}
                       disabled={!isEditing}
                       className="input"
                     >
@@ -265,8 +265,8 @@ const ProfilePage = () => {
                   <div>
                     <label className="label">Smoking Preference</label>
                     <select
-                      value={editData.preferences?.smokingPreference || ""}
-                      onChange={(e) => handlePreferenceChange("smokingPreference", e.target.value)}
+value={editData.smoking_preference_c || ""}
+                      onChange={(e) => handleInputChange("smoking_preference_c", e.target.value)}
                       disabled={!isEditing}
                       className="input"
                     >
@@ -278,8 +278,8 @@ const ProfilePage = () => {
                   <div>
                     <label className="label">Floor Preference</label>
                     <select
-                      value={editData.preferences?.floorPreference || ""}
-                      onChange={(e) => handlePreferenceChange("floorPreference", e.target.value)}
+value={editData.floor_preference_c || ""}
+                      onChange={(e) => handleInputChange("floor_preference_c", e.target.value)}
                       disabled={!isEditing}
                       className="input"
                     >
@@ -294,8 +294,8 @@ const ProfilePage = () => {
                   <label className="flex items-center">
                     <input
                       type="checkbox"
-                      checked={editData.preferences?.newsletter || false}
-                      onChange={(e) => handlePreferenceChange("newsletter", e.target.checked)}
+checked={editData.newsletter_c || false}
+                      onChange={(e) => handleInputChange("newsletter_c", e.target.checked)}
                       disabled={!isEditing}
                       className="mr-3 rounded"
                     />

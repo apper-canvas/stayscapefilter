@@ -8,7 +8,7 @@ const HotelCard = ({ hotel, index = 0 }) => {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/hotels/${hotel.Id}`);
+navigate(`/hotels/${hotel.Id}`);
   };
 
   const renderStars = (rating) => {
@@ -30,30 +30,30 @@ const HotelCard = ({ hotel, index = 0 }) => {
     >
       <div className="relative h-48 overflow-hidden">
         <img
-          src={hotel.images[0]}
-          alt={hotel.name}
+src={hotel.images?.[0] || '/placeholder-hotel.jpg'}
+alt={hotel.name_c}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute top-3 right-3">
-          {!hotel.available ? (
+{!hotel.available_c ? (
             <Badge variant="error">Unavailable</Badge>
-          ) : hotel.featured ? (
+          ) : hotel.featured_c ? (
             <Badge variant="accent">Featured</Badge>
           ) : null}
         </div>
         <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center">
-          {renderStars(hotel.starRating)}
+{renderStars(hotel.star_rating_c)}
         </div>
       </div>
 
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-display font-semibold text-lg text-gray-900 line-clamp-1">
-            {hotel.name}
+{hotel.name_c}
           </h3>
           <div className="text-right ml-4 flex-shrink-0">
             <div className="text-2xl font-bold text-primary-500">
-              ${hotel.pricePerNight}
+${hotel.price_per_night_c}
             </div>
             <div className="text-sm text-gray-500">per night</div>
           </div>
@@ -61,30 +61,30 @@ const HotelCard = ({ hotel, index = 0 }) => {
 
         <div className="flex items-center text-gray-600 mb-3">
           <ApperIcon name="MapPin" className="w-4 h-4 mr-1" />
-          <span className="text-sm">{hotel.location.city}, {hotel.location.state}</span>
+<span className="text-sm">{hotel.location_city_c}, {hotel.location_state_c}</span>
         </div>
 
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <div className="flex items-center bg-primary-50 rounded-lg px-2 py-1">
               <ApperIcon name="Star" className="w-4 h-4 text-amber-400 fill-current mr-1" />
-              <span className="text-sm font-medium text-primary-700">{hotel.rating}</span>
+<span className="text-sm font-medium text-primary-700">{hotel.rating_c}</span>
             </div>
             <span className="text-xs text-gray-500 ml-2">
               ({hotel.reviewCount} reviews)
-            </span>
+</span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {hotel.amenities.slice(0, 3).map((amenity, idx) => (
+{hotel.amenities?.slice(0, 3).map((amenity, idx) => (
             <Badge key={idx} variant="default" className="text-xs">
               {amenity}
             </Badge>
           ))}
           {hotel.amenities.length > 3 && (
             <Badge variant="default" className="text-xs">
-              +{hotel.amenities.length - 3} more
++{hotel.amenities?.length - 3} more
             </Badge>
           )}
         </div>
@@ -92,7 +92,7 @@ const HotelCard = ({ hotel, index = 0 }) => {
         <Button
           onClick={handleViewDetails}
           className="w-full"
-          variant={hotel.available ? "primary" : "outline"}
+variant={hotel.available_c ? "primary" : "outline"}
           disabled={!hotel.available}
         >
           {hotel.available ? "View Details" : "Unavailable"}

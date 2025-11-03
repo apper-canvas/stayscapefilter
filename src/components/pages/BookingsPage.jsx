@@ -176,7 +176,7 @@ const BookingsPage = () => {
             >
               {filteredBookings.map((booking, index) => (
                 <BookingCard
-                  key={booking.Id}
+key={booking.Id}
                   booking={booking}
                   onViewDetails={handleViewDetails}
                   onCancel={handleCancelBooking}
@@ -222,20 +222,20 @@ const BookingsPage = () => {
                     {/* Hotel Info */}
                     <div className="flex space-x-4">
                       <img
-                        src={selectedBooking.hotelImage}
-                        alt={selectedBooking.hotelName}
+src={selectedBooking.hotel_image_c}
+                        alt={selectedBooking.hotel_name_c}
                         className="w-24 h-20 object-cover rounded-lg"
                       />
                       <div>
-                        <h4 className="text-xl font-display font-semibold text-gray-900">
-                          {selectedBooking.hotelName}
+<h4 className="text-xl font-display font-semibold text-gray-900">
+                          {selectedBooking.hotel_name_c}
                         </h4>
                         <p className="text-gray-600 flex items-center">
-                          <ApperIcon name="MapPin" className="w-4 h-4 mr-1" />
-                          {selectedBooking.location}
+<ApperIcon name="MapPin" className="w-4 h-4 mr-1" />
+                          {selectedBooking.location_c}
                         </p>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Confirmation: {selectedBooking.confirmationNumber}
+<p className="text-sm text-gray-500 mt-1">
+                          Confirmation: {selectedBooking.confirmation_number_c}
                         </p>
                       </div>
                     </div>
@@ -244,19 +244,19 @@ const BookingsPage = () => {
                     <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
                       <div>
                         <span className="text-sm text-gray-600">Check-in</span>
-                        <div className="font-medium">{new Date(selectedBooking.checkIn).toLocaleDateString()}</div>
+<div className="font-medium">{new Date(selectedBooking.check_in_c).toLocaleDateString()}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-600">Check-out</span>
-                        <div className="font-medium">{new Date(selectedBooking.checkOut).toLocaleDateString()}</div>
+<span className="text-sm text-gray-600">Check-out</span>
+                        <div className="font-medium">{new Date(selectedBooking.check_out_c).toLocaleDateString()}</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-600">Duration</span>
-                        <div className="font-medium">{selectedBooking.nights} nights</div>
+<span className="text-sm text-gray-600">Duration</span>
+                        <div className="font-medium">{selectedBooking.nights_c} nights</div>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-600">Guests</span>
-                        <div className="font-medium">{selectedBooking.guests}</div>
+<span className="text-sm text-gray-600">Guests</span>
+                        <div className="font-medium">{selectedBooking.guests_c}</div>
                       </div>
                     </div>
 
@@ -267,20 +267,20 @@ const BookingsPage = () => {
                         <div>
                           <span className="text-gray-600">Name:</span>
                           <div className="font-medium">
-                            {selectedBooking.guestDetails.firstName} {selectedBooking.guestDetails.lastName}
+{selectedBooking.guest_details_first_name_c} {selectedBooking.guest_details_last_name_c}
                           </div>
                         </div>
                         <div>
                           <span className="text-gray-600">Email:</span>
-                          <div className="font-medium">{selectedBooking.guestDetails.email}</div>
+<div className="font-medium">{selectedBooking.guest_details_email_c}</div>
                         </div>
                         <div>
                           <span className="text-gray-600">Phone:</span>
-                          <div className="font-medium">{selectedBooking.guestDetails.phone}</div>
+<div className="font-medium">{selectedBooking.guest_details_phone_c}</div>
                         </div>
                         <div>
                           <span className="text-gray-600">Room Type:</span>
-                          <div className="font-medium">{selectedBooking.roomType}</div>
+<div className="font-medium">{selectedBooking.room_type_c}</div>
                         </div>
                       </div>
                     </div>
@@ -290,7 +290,7 @@ const BookingsPage = () => {
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-semibold text-gray-900">Total Amount</span>
                         <span className="text-2xl font-bold text-primary-500">
-                          ${selectedBooking.totalPrice}
+${selectedBooking.total_price_c}
                         </span>
                       </div>
                     </div>

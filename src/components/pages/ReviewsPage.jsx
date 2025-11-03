@@ -30,8 +30,7 @@ function ReviewsPage() {
   
   // Get hotel info from navigation state (if coming from hotel details)
   const prefilledHotel = location.state?.hotel;
-  const [selectedHotelId, setSelectedHotelId] = useState(prefilledHotel?.Id || "");
-
+const [selectedHotelId, setSelectedHotelId] = useState(prefilledHotel?.Id || "");
   useEffect(() => {
     loadReviews();
     loadHotels();
@@ -89,17 +88,17 @@ function ReviewsPage() {
       // Add user info (in real app, this would come from auth context)
       const reviewData = {
         ...formData,
-        hotelId: selectedHotelId || prefilledHotel?.Id,
-        userId: 1, // Mock current user ID
+hotel_id_c: selectedHotelId || prefilledHotel?.Id,
+        user_id_c: 1, // Mock current user ID
         userName: "Current User", // Mock current user name
         userAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
       };
       
       if (editingReview) {
-        await reviewService.update(editingReview.Id, reviewData);
+await reviewService.update(editingReview.Id, reviewData);
         toast.success("Review updated successfully!");
       } else {
-        await reviewService.create(reviewData);
+await reviewService.create(reviewData);
         toast.success("Review submitted successfully!");
       }
       
@@ -119,7 +118,7 @@ function ReviewsPage() {
     }
     
     try {
-      await reviewService.delete(reviewId);
+await reviewService.delete(reviewId);
       toast.success("Review deleted successfully");
       await loadReviews();
     } catch (err) {
@@ -179,8 +178,8 @@ function ReviewsPage() {
             >
               <option value="">All Hotels</option>
               {hotels.map(hotel => (
-                <option key={hotel.Id} value={hotel.Id}>
-                  {hotel.name}
+<option key={hotel.Id} value={hotel.Id}>
+                  {hotel.name_c}
                 </option>
               ))}
             </select>
@@ -277,7 +276,7 @@ function ReviewsPage() {
             </div>
             {filteredReviews.map((review) => (
               <ReviewCard
-                key={review.Id}
+key={review.Id}
                 review={review}
                 onEdit={handleEditReview}
                 onDelete={handleDeleteReview}
